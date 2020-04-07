@@ -7,7 +7,7 @@ export class Footer extends Component {
                 <div className="content has-text-centered">
                     <p>
                         Movie Finder App by <a href="/">Carlos Moreno</a>. API provided by
-                        <a href="http://http://www.omdbapi.com/"> OMBb</a>
+                        <a href="http://www.omdbapi.com/" target="_blank"> OMBb</a>
                     </p>
                 </div>
             </footer>
