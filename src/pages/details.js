@@ -33,7 +33,6 @@ export class Detail extends Component {
                 this.setState({
                     movie: result
                 })
-                console.log(result)
             }, error => {
                 console.log(error)
             })
