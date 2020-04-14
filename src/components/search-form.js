@@ -7,9 +7,15 @@ const API_PARAM = {
 export const SearchForm = (props) => {
 
     const [inputMovie, setInputMovie] =useState ("");
-    const [error, setError] =useState (null);
-    const [responseStatus, setResponseStatus] =useState (null);
     const onResults = props.onResults;
+
+
+    const fecthMovieList = async () => {
+        const url  = `http://www.omdbapi.com/?apikey=${API_PARAM.KEY}&s=${inputMovie}`;
+        const callApi = await fetch(url);
+        const movieList = await callApi.json();
+        onResults(movieList);
+    }
 
     const _handleChange = (event) => {
         setInputMovie (event.target.value);
@@ -17,19 +23,7 @@ export const SearchForm = (props) => {
 
     const _handleSubmit = (event) => {
         event.preventDefault();
-        let url  = `http://www.omdbapi.com/?apikey=${API_PARAM.KEY}&s=${inputMovie}`;
-        fetch(url)
-            .then(response => {
-                setResponseStatus(response.status)
-                return response.json();
-                })
-            .then(result => {
-                setError(result.error)
-                console.log(onResults)
-                onResults(result)
-                }, error => {
-                console.log(error)
-            })
+        fecthMovieList();
     }
 
     return(
