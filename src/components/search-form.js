@@ -1,62 +1,56 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 
 const API_PARAM = {
     KEY:"8cace39"
 } ;
 
-export class SearchForm extends Component {
+export const SearchForm = (props) => {
 
-    state = {
-        inputMovie:"",
-        error: null,
-        responseStatus: null
+    const [inputMovie, setInputMovie] =useState ("");
+    const [error, setError] =useState (null);
+    const [responseStatus, setResponseStatus] =useState (null);
+    const onResults = props.onResults;
+
+    const _handleChange = (event) => {
+        setInputMovie (event.target.value);
     }
 
-    _handleChange = (event) => {
-        this.setState({ inputMovie:event.target.value})
-    }
-
-    _handleSubmit = (event) => {
+    const _handleSubmit = (event) => {
         event.preventDefault();
-        let url  = `http://www.omdbapi.com/?apikey=${API_PARAM.KEY}&s=${this.state.inputMovie}`;
+        let url  = `http://www.omdbapi.com/?apikey=${API_PARAM.KEY}&s=${inputMovie}`;
         fetch(url)
             .then(response => {
-                this.setState({responseStatus:response.status});
+                setResponseStatus(response.status)
                 return response.json();
                 })
             .then(result => {
-                this.setState({
-                    error: result.Error,
-                })
-                this.props.onResults(result)
+                setError(result.error)
+                console.log(onResults)
+                onResults(result)
                 }, error => {
                 console.log(error)
             })
     }
 
-
-    render() {
-
-        return(
-            <form onSubmit={this._handleSubmit}>
-                <div className="field is-grouped  ">
-                    <div className="control is-expanded">
-                        <input
-                            className="input is-rounded is-inverted"
-                            name="finder"
-                            type="text"
-                            placeholder="Find a movie..."
-                            onChange={this._handleChange}
-                            required="required"
-                        />
-                    </div>
-                    <div className="control">
-                        <button className="button is-dark is-rounded">
-                            Search
-                        </button>
-                    </div>
+    return(
+        <form onSubmit={_handleSubmit}>
+            <div className="field is-grouped  ">
+                <div className="control is-expanded">
+                    <input
+                        className="input is-rounded is-inverted"
+                        name="finder"
+                        type="text"
+                        placeholder="Find a movie..."
+                        onChange={_handleChange}
+                        required="required"
+                    />
                 </div>
-            </form>
-        )
-    }
+                <div className="control">
+                    <button className="button is-dark is-rounded">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    )
 }
