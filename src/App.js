@@ -2,20 +2,14 @@ import React, {Component} from 'react';
 import {Switch, Route} from "react-router";
 import './App.css';
 import 'bulma/css/bulma.css'
-import {Detail} from "./pages/details";
 import {Home} from "./pages/home";
 import {Footer} from "./components/footer";
 import {NotFound} from "./pages/not-found"
+import Detail from "./pages/details";
 
 class App extends Component  {
 
   render() {
-      //Enrutado con renderizado condicional
-      // const url = new URL(document.location)
-      // const Page = url.searchParams.has('id')
-      //       ? <Detail id={url.searchParams.get('id')}/>
-      //       : <Home/>
-
       return (
           <div className="App ">
               <div className="app-wrapper">
