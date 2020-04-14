@@ -1,47 +1,42 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import {MovieList} from "../components/movies-list";
 import {Header} from "../components/header";
 
-export class Home extends Component {
+const Home  = () => {
 
-    state = {
-        search: [],
-        totalResults: "",
-        response: null,
-        error: null
-    };
+    const [search, setSearch] = useState([]);
+    const [totalResults, setTotalResults] = useState("");
+    const [response, setResponse] = useState(null);
+    const [error, setError] = useState(null);
 
-    _handleResults = (results) => {
-        this.setState({
-            search: results.Search,
-            totalResults: results.totalResults,
-            response: results.Response,
-            error: results.Error
-        });
+    const _handleResults = (results) => {
+        setSearch(results.Search);
+        setTotalResults(results.totalResults);
+        setResponse(results.Response);
+        setError(results.Error);
     }
 
-    render() {
 
-        const {search, totalResults, response, error} = this.state;
+    return( <section className="body-home">
+                <Header onResults={_handleResults}/>
+                {response
+                ? <section className="movies-list-section">
+                        <MovieList
+                            movies={search}
+                            totalResults={totalResults}
+                            response={response}
+                            error={error}
+                        />
+                    </section>
+                : <BodyHome/>}
+            </section>
+    )
 
-        return( <section className="body-home">
-                    <Header onResults={this._handleResults}/>
-                    {response
-                    ? <section className="movies-list-section">
-                            <MovieList
-                                movies={search}
-                                totalResults={totalResults}
-                                response={response}
-                                error={error}
-                            />
-                        </section>
-                    : <BodyHome/>}
-                </section>
-        )
-    }
 }
 
 const BodyHome = () =>{
     return (<div >
     </div>)
 }
+
+export default Home;
