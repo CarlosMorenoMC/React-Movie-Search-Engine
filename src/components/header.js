@@ -1,26 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Title} from "./title";
 import {SearchForm} from "./search-form";
 
-export class Header extends Component {
+export const Header = (props) => {
 
-    _handleResults = (results) => {
-        this.props.onResults(results);
+    const _handleResults = (results) => {
+        props.onResults(results);
     }
 
-    render() {
-
-        return(
-            <header className="hero is-medium is-primary is-bold is-small ">
-                <section className="hero-body">
-                    <Title>Movie Search Engine</Title>
-                    <section className="container">
-                        <div className="searchForm-wrapper">
-                            <SearchForm onResults={this._handleResults}/>
-                        </div>
-                    </section>
+    return(
+        <header className="hero is-medium is-primary is-bold is-small ">
+            <section className="hero-body">
+                <Title>Movie Search Engine</Title>
+                <section className="container">
+                    <div className="searchForm-wrapper">
+                        <SearchForm onResults={_handleResults}/>
+                    </div>
                 </section>
-            </header>
-        )
-    }
+            </section>
+        </header>
+    )
 }
