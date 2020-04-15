@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> Few lines describing your proect.
+<p align="center"> Few lines describing your project.
     <br> 
 </p>
 
